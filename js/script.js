@@ -14,7 +14,8 @@ $(document).ready(function() {
 
   // quando clicco sul pulsante elimina cancello un elemento
   $(document).on('click', '.delete-item', function() {
-
+    var thisItem = $(this).parent().data('item');
+    deleteItem(thisItem)
   });
 
 });
@@ -74,7 +75,8 @@ function deleteItem(itemId) {
       method: 'DELETE',
 
       success: function(data) {
-
+        $('.list-items').html('');
+        getTodoList();
       },
 
       error: function() {
