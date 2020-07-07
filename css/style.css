@@ -9,3 +9,11 @@
 body {
   font-family: 'Roboto', sans-serif;
 }
+
+/* ________ TEMPLATE LIST ITEM ________ */
+.item {
+  background: yellow;
+  border-bottom: 1px solid black;
+  margin-bottom: 10px;
+  padding: 10px;
+}

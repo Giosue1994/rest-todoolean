@@ -1,5 +1,17 @@
 $(document).ready(function() {
+
   getTodoList();
+
+  // quando scrivo sull'input e premo il tato Inserisci
+  // aggiungo un nuovo elemento alla lista
+  $('.add-item').click(function() {
+
+    var textItem = $('.text-item').val();
+    printList(textItem);
+    updateList(textItem);
+    
+  });
+
 });
 
 //////////////////////////////////////////////////////
@@ -12,8 +24,9 @@ function getTodoList() {
 
       success: function(data) {
 
-        for (var key in data) {
-          printList(data[key].text);
+        for (var i = 0; i < data.length; i++) {
+          var item = data[i];
+          printList(item.text);
         }
 
       },
@@ -24,6 +37,29 @@ function getTodoList() {
     }
   );
 };
+
+//////////////////////////////////////////////////////
+// FUNZIONE MODIFICA LISTA
+function updateList(item) {
+  $.ajax(
+    {
+      url: 'http://157.230.17.132:3016/todos',
+      method: 'POST',
+      data: {
+        text: item
+      },
+
+      success: function(data) {
+
+      },
+
+      error: function() {
+        console.log('Errore');
+      }
+    }
+  );
+};
+
 
 //////////////////////////////////////////////////////
 // FUNZIONE STAMPA ELEMENTI LISTA
