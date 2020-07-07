@@ -36,7 +36,7 @@
 
     <!-- TEMPLATE LIST ITEM -->
     <script id="item-template" type="text/x-handlebars-template">
-      <li class="item">{{ text }}<button>Elimina</button></li>
+      <li data-item="{{ itemId }}" class="item">{{ text }}<button class="delete-item">Elimina</button></li>
     </script>
 
     <script src="js/script.js">

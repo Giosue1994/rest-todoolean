@@ -6,10 +6,15 @@ $(document).ready(function() {
   // aggiungo un nuovo elemento alla lista
   $('.add-item').click(function() {
 
+    $('.list-items').html('');
     var textItem = $('.text-item').val();
-    printList(textItem);
     updateList(textItem);
-    
+
+  });
+
+  // quando clicco sul pulsante elimina cancello un elemento
+  $(document).on('click', '.delete-item', function() {
+
   });
 
 });
@@ -26,7 +31,7 @@ function getTodoList() {
 
         for (var i = 0; i < data.length; i++) {
           var item = data[i];
-          printList(item.text);
+          printList(item.text, item.id);
         }
 
       },
@@ -50,6 +55,25 @@ function updateList(item) {
       },
 
       success: function(data) {
+        getTodoList();
+      },
+
+      error: function() {
+        console.log('Errore');
+      }
+    }
+  );
+};
+
+//////////////////////////////////////////////////////
+// FUNZIONE ELIMINA ELEMENTO LISTA
+function deleteItem(itemId) {
+  $.ajax(
+    {
+      url: 'http://157.230.17.132:3016/todos/' + itemId,
+      method: 'DELETE',
+
+      success: function(data) {
 
       },
 
@@ -63,12 +87,13 @@ function updateList(item) {
 
 //////////////////////////////////////////////////////
 // FUNZIONE STAMPA ELEMENTI LISTA
-function printList(item) {
+function printList(item, itemId) {
   var source = $("#item-template").html();
   var template = Handlebars.compile(source);
 
   var context = {
-    text: item
+    text: item,
+    itemId: itemId
   };
 
   var html = template(context);
